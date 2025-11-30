@@ -1,6 +1,9 @@
 name: Discord Logbook
 
-on: [push]
+on:
+  push:
+  pull_request:
+    types: [opened]
 
 jobs:
   discord-notify:
@@ -9,7 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Discord Notification
+      # 1. This runs ONLY for PUSHES
+      - name: Discord Notification (Push)
+        if: github.event_name == 'push'
         uses: ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
@@ -19,3 +24,15 @@ jobs:
             ```
             ${{ github.event.head_commit.message }}
             ```
+
+      # 2. This runs ONLY for NEW PULL REQUESTS
+      - name: Discord Notification (PR)
+        if: github.event_name == 'pull_request'
+        uses: ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: |
+            **${{ github.actor }}** opened a new Pull Request!
+            **Title:** ${{ github.event.pull_request.title }}
+            **Link:** ${{ github.event.pull_request.html_url }}
