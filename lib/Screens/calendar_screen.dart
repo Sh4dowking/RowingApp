@@ -36,11 +36,9 @@ class CalendarScreenState extends State<CalendarScreen>{
 
   @override
   void dispose() {
-    // Dispose the ValueNotifier to free up resources
     selectedEvents.dispose();
     super.dispose();
   }
-
 
   List<Event> getEventsForDay(DateTime day){
     return events[DateTime.utc(day.year, day.month, day.day)] ?? [];
@@ -71,24 +69,63 @@ class CalendarScreenState extends State<CalendarScreen>{
                 },
                 onDaySelected: onDaySelected,
                 eventLoader: getEventsForDay,
-                headerStyle: const HeaderStyle(
+                headerStyle: HeaderStyle(
                   formatButtonVisible: false,
                   titleCentered: true,
+                  titleTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  leftChevronIcon: Icon(
+                    Icons.chevron_left,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  rightChevronIcon: Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 calendarStyle: CalendarStyle(
                   todayDecoration: BoxDecoration(
-                    color: Colors.red[200],
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
                     shape: BoxShape.circle,
                   ),
-                  selectedDecoration: const BoxDecoration(
-                    color: Colors.red,
+                  todayTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  selectedDecoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.7),
                     shape: BoxShape.circle,
                   ),
-                  selectedTextStyle: const TextStyle(color: Colors.white),
+                  selectedTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
                   markersMaxCount: 1,
                   markerDecoration: BoxDecoration(
-                    color: Colors.red[900],
+                    color: Theme.of(context).colorScheme.primary,
                     shape: BoxShape.circle,
+                  ),
+                  defaultTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  weekendTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                  ),
+                  outsideTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),
+                  ),
+                ),
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  weekendStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -107,12 +144,27 @@ class CalendarScreenState extends State<CalendarScreen>{
                             vertical: 4.0,
                           ),
                           decoration: BoxDecoration(
-                            border: Border.all(),
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.outline,
+                              width: 1.5,
+                            ),
                             borderRadius: BorderRadius.circular(12.0),
+                            color: Theme.of(context).colorScheme.surface,
                           ),
                           child: ListTile(
                             onTap: () => print('${value[index].title} pressed!'),
-                            title: Text(value[index].title),
+                            title: Text(
+                              value[index].title,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            leading: Icon(
+                              Icons.event,
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 24,
+                            ),
                           ),
                         );
                       },

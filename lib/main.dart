@@ -13,16 +13,57 @@ class RowingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Cold, deep, and dark color palette - muted and sophisticated
+    const Color bloodRed = Color(
+      0xFF710B0B,
+    ); // Deep dark red for primary actions
+    const Color burgundy = Color(0xFF4A0E14); // Deeper burgundy for emphasis
+    const Color mutedRed = Color(0xFF8B3A3A); // Muted dark red for accents
+    const Color charcoal = Color(0xFF1C1C1E); // Deep charcoal for surfaces
+    const Color midnight = Color(0xFF0D0D0F); // Near-black midnight
+    const Color slate = Color(0xFF2C2C2E); // Slate gray for elevated surfaces
+    const Color steel = Color(0xFF6C6C70); // Cool steel gray for secondary elements
+    const Color coolWhite = Color(0xFFE8E8E8); // Cool off-white for backgrounds
+    const Color iceWhite = Color(0xFFF2F2F7); // Slightly warm ice white
+    const Color shadow = Color(0xFF121214); // Dark shadow tone
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      // --- LIGHT THEME ---
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red, brightness: Brightness.dark),
-        useMaterial3: true,
-        brightness: Brightness.dark
+        brightness: Brightness.light,
+        colorScheme: const ColorScheme.light(
+          primary: bloodRed,
+          onPrimary: iceWhite,
+          secondary: mutedRed,
+          onSecondary: iceWhite,
+          tertiary: burgundy,
+          onTertiary: iceWhite,
+          surface: iceWhite,
+          onSurface: charcoal,
+          surfaceContainerHighest: coolWhite,
+          error: Color(0xFF8B2C2C),
+          onError: iceWhite,
+          outline: steel,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: bloodRed,
+          foregroundColor: iceWhite,
+          elevation: 0,
+          centerTitle: true,
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: coolWhite,
+          selectedItemColor: bloodRed,
+          unselectedItemColor: steel,
+          elevation: 8,
+          type: BottomNavigationBarType.fixed,
+        ),
+        cardTheme: const CardTheme(
+          color: iceWhite,
+          elevation: 2,
+          shadowColor: Color(0x1A000000),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: const MainPage(),
@@ -38,61 +79,71 @@ class MainPage extends StatefulWidget {
 }
 
 class MainPageState extends State<MainPage> {
-  int screenIndex = 0;
+  final ValueNotifier<int> screenIndex = ValueNotifier<int>(0);
   final List<Widget> screens = [
     const HomeScreen(),
     const CalendarScreen(),
     const NotificationsScreen(),
-    const ProfileScreen()
+    const ProfileScreen(),
   ];
 
-  void onBottomNavigationBarTapped(int index){
-    setState(() {
-      screenIndex = index;
-    });
+  void onBottomNavigationBarTapped(int index) {
+    screenIndex.value = index;
   }
 
-
+  @override
+  void dispose() {
+    screenIndex.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            'Rowing App',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-      body: screens[screenIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.inbox),
-            label: 'Notifications',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+        title: Text('Rowing App'),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              icon: const Icon(Icons.login),
+              onPressed: () {
+                print("user pressed login button");
+              },
+            ),
           ),
         ],
-        currentIndex: screenIndex,
-        onTap: onBottomNavigationBarTapped,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Colors.grey[700]
-
+      ),
+      body: ValueListenableBuilder<int>(
+        valueListenable: screenIndex,
+        builder: (context, value, child) {
+          return screens[value];
+        },
+      ),
+      bottomNavigationBar: ValueListenableBuilder<int>(
+        valueListenable: screenIndex,
+        builder: (context, index, child) {
+          return BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month),
+                label: 'Calendar',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.inbox),
+                label: 'Notifications',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
+            currentIndex: index,
+            onTap: onBottomNavigationBarTapped,
+          );
+        },
       ),
     );
   }
