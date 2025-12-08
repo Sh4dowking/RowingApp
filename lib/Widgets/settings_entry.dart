@@ -14,11 +14,10 @@ class SettingsEntry extends StatefulWidget {
 class _SettingsEntryState extends State<SettingsEntry> {
   @override
   Widget build(BuildContext context) {
-    bool isLight = isLightMode(context);
     return SizedBox(
       width: double.infinity,
       child: Card(
-        color: isLight ? Colors.white : Colors.grey[1000],
+        color: AppColors.surface(context),
         margin: EdgeInsets.all(0),
         shape: Border(),
         child: ListTile(

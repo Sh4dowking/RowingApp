@@ -8,16 +8,15 @@ class InformationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLight = isLightMode(context);
 
     return Drawer(
-      backgroundColor: isLight ? white : Colors.grey[900],
+      backgroundColor: AppColors.surface(context),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: isLight ? burgundy : Colors.black
+              color: AppColors.primary(context)
             ),
             child: Text(
               'Menu',

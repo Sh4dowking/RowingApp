@@ -70,91 +70,6 @@ class CalendarScreenState extends State<CalendarScreen>{
                 },
                 onDaySelected: onDaySelected,
                 eventLoader: getEventsForDay,
-                headerStyle: HeaderStyle(
-                  formatButtonVisible: false,
-                  titleCentered: true,
-                  titleTextStyle: TextStyle(
-                    color: isLightMode(context)
-                      ? Theme.of(context).colorScheme.onSurface
-                      : white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  leftChevronIcon: Icon(
-                    Icons.chevron_left,
-                    color: isLightMode(context)
-                      ? burgundy
-                      : white,
-                  ),
-                  rightChevronIcon: Icon(
-                    Icons.chevron_right,
-                    color: isLightMode(context)
-                      ? burgundy
-                      : white,
-                  ),
-                ),
-                calendarStyle: CalendarStyle(
-                  todayDecoration: BoxDecoration(
-                    color: isLightMode(context)
-                      ? burgundy.withValues(alpha: 0.3)
-                      : white.withValues(alpha: 0.2),
-                    shape: BoxShape.circle,
-                  ),
-                  todayTextStyle: TextStyle(
-                    color: isLightMode(context)
-                      ? Theme.of(context).colorScheme.onSurface
-                      : white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  selectedDecoration: BoxDecoration(
-                    color: isLightMode(context)
-                      ? burgundy.withValues(alpha: 0.7)
-                      : white.withValues(alpha: 0.3),
-                    shape: BoxShape.circle,
-                  ),
-                  selectedTextStyle: TextStyle(
-                    color: isLightMode(context)
-                      ? white
-                      : Theme.of(context).colorScheme.surface,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  markersMaxCount: 1,
-                  markerDecoration: BoxDecoration(
-                    color: isLightMode(context)
-                      ? burgundy
-                      : white,
-                    shape: BoxShape.circle,
-                  ),
-                  defaultTextStyle: TextStyle(
-                    color: isLightMode(context)
-                      ? Theme.of(context).colorScheme.onSurface
-                      : white,
-                  ),
-                  weekendTextStyle: TextStyle(
-                    color: isLightMode(context)
-                      ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)
-                      : white.withValues(alpha: 0.7),
-                  ),
-                  outsideTextStyle: TextStyle(
-                    color: isLightMode(context)
-                      ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3)
-                      : white.withValues(alpha: 0.3),
-                  ),
-                ),
-                daysOfWeekStyle: DaysOfWeekStyle(
-                  weekdayStyle: TextStyle(
-                    color: isLightMode(context)
-                      ? Theme.of(context).colorScheme.onSurface
-                      : white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  weekendStyle: TextStyle(
-                    color: isLightMode(context)
-                      ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)
-                      : white.withValues(alpha: 0.7),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ),
               const SizedBox(height: 8.0),
               // Use Expanded to make the ListView fill the remaining space
@@ -172,26 +87,17 @@ class CalendarScreenState extends State<CalendarScreen>{
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            color: isLightMode(context)
-                              ? coolWhite
-                              : steel.withValues(alpha: 0.2),
                           ),
                           child: ListTile(
                             onTap: () => print('${value[index].title} pressed!'),
                             title: Text(
                               value[index].title,
                               style: TextStyle(
-                                color: isLightMode(context)
-                                  ? Theme.of(context).colorScheme.onSurface
-                                  : white,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             leading: Icon(
                               Icons.event,
-                              color: isLightMode(context)
-                                ? burgundy
-                                : white,
                               size: 24,
                             ),
                           ),
@@ -206,3 +112,4 @@ class CalendarScreenState extends State<CalendarScreen>{
     );
   }
 }
+

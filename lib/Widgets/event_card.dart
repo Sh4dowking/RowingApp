@@ -18,21 +18,20 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: isLightMode(context) ? coolWhite : Color(0x21212100),
-      elevation: isLightMode(context) ? 8 : 2,
+      color: AppColors.surface(context),
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListTile(
           leading: Icon(
             icon,
-            color: isLightMode(context) ? burgundy : white,
+            color: AppColors.onSurface(context),
             size: 40.0,
           ),
           title: Text(
             title,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
+      ),
           subtitle: Text('$description\nTime: $time'),
           isThreeLine: true,
         ),
@@ -40,3 +39,4 @@ class EventCard extends StatelessWidget {
     );
   }
 }
+

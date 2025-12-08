@@ -59,7 +59,7 @@ class MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(title: Text('Rowing App'),
       titleTextStyle: TextStyle(
-          color: isLightMode(context) ? white : black,
+          color: AppColors.onPrimary(context),
           fontWeight: FontWeight.bold,
         fontSize: 24
       ),
