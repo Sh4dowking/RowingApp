@@ -6,6 +6,8 @@ class EventCard extends StatelessWidget {
   final String description;
   final String time;
   final IconData icon;
+  final VoidCallback onTap;
+
 
   const EventCard({
     super.key,
@@ -13,27 +15,31 @@ class EventCard extends StatelessWidget {
     required this.description,
     required this.time,
     required this.icon,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: AppColors.surface(context),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListTile(
-          leading: Icon(
-            icon,
-            color: AppColors.accent(context),
-            size: 40.0,
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: AppColors.surface(context),
+        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListTile(
+            leading: Icon(
+              icon,
+              color: AppColors.accent(context),
+              size: 40.0,
+            ),
+            title: Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            subtitle: Text('$description\nTime: $time'),
+            isThreeLine: true,
           ),
-          title: Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-          subtitle: Text('$description\nTime: $time'),
-          isThreeLine: true,
         ),
       ),
     );
