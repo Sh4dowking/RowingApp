@@ -9,15 +9,6 @@ class ThemeScreen extends StatefulWidget {
 }
 
 class _ThemeScreenState extends State<ThemeScreen> {
-  late ThemeMode _currentThemeMode;
-
-  @override
-  void initState() {
-    super.initState();
-    // Get the current theme mode from the app
-    _currentThemeMode = themeNotifier.value;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +27,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Theme Mode'),
+                    Text('Theme Mode', style: TextStyle(color: AppColors.onSurface(context)),),
                     ValueListenableBuilder<ThemeMode>(
                       valueListenable: themeNotifier,
                       builder: (context, themeMode, child) {
@@ -67,7 +58,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                       },
                     ),
                   ],
-                ),
+                ), 
               ),
             ),
           ),
@@ -87,10 +78,21 @@ class _ThemeScreenState extends State<ThemeScreen> {
         themeNotifier.value = mode;
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2),
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0)),
-        child: Center(child: Text(label)),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.accent(context) : null,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              color: isSelected
+                  ? AppColors.onPrimary(context)
+                  : AppColors.onSurface(context),
+            ),
+          ),
+        ),
       ),
     );
   }

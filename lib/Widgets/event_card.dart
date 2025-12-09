@@ -25,7 +25,7 @@ class EventCard extends StatelessWidget {
         child: ListTile(
           leading: Icon(
             icon,
-            color: AppColors.onSurface(context),
+            color: AppColors.accent(context),
             size: 40.0,
           ),
           title: Text(

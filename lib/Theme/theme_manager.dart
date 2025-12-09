@@ -16,7 +16,7 @@ class AppColors {
   }
 
   static Color primary(BuildContext context) {
-    return isLightMode(context) ? burgundy : black;
+    return black;
   }
 
   static Color onPrimary(BuildContext context) {
@@ -24,19 +24,29 @@ class AppColors {
   }
 
   static Color surface(BuildContext context) {
-    return isLightMode(context) ? coolWhite : charcoal;
+    return charcoal;
   }
 
   static Color onSurface(BuildContext context){
-    return isLightMode(context) ? black : white;
+    return white;
+  }
+
+  static Color accent(BuildContext context){
+    return burgundy;
+  }
+
+  static Color lightAccent(BuildContext context){
+    return red;
+  }
+
+  static Color description(BuildContext context){
+    return steel;
   }
 
 
 }
 
 final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.system);
-
-
 
 ThemeData getLightTheme() {
   return ThemeData(
@@ -61,12 +71,12 @@ ThemeData getDarkTheme() {
     useMaterial3: true,
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.black,
+      backgroundColor: AppColors.midnight,
       foregroundColor: AppColors.white,
       elevation: 0,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.black,
+      backgroundColor: AppColors.midnight,
       selectedItemColor: AppColors.steel,
       unselectedItemColor: AppColors.white,
     ),

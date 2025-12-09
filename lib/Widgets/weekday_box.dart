@@ -21,7 +21,7 @@ class WeekdayBox extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColors.primary(context)
+              ? AppColors.accent(context)
               : AppColors.surface(context),
           borderRadius: BorderRadius.circular(8.0),
         ),

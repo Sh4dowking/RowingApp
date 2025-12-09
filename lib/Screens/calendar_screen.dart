@@ -70,6 +70,64 @@ class CalendarScreenState extends State<CalendarScreen>{
                 },
                 onDaySelected: onDaySelected,
                 eventLoader: getEventsForDay,
+                headerStyle: HeaderStyle(
+                  formatButtonVisible: false,
+                  titleCentered: true,
+                  titleTextStyle: TextStyle(
+                    color: AppColors.onPrimary(context),
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  leftChevronIcon: Icon(
+                    Icons.chevron_left,
+                    color: AppColors.onPrimary(context),
+                  ),
+                  rightChevronIcon: Icon(
+                    Icons.chevron_right,
+                    color: AppColors.onPrimary(context),
+                  ),
+                ),
+                calendarStyle: CalendarStyle(
+                  todayDecoration: BoxDecoration(
+                    color: AppColors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  todayTextStyle: TextStyle(
+                    color: AppColors.onSurface(context),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  selectedDecoration: BoxDecoration(
+                    color: AppColors.accent(context),
+                    shape: BoxShape.circle,
+                  ),
+                  selectedTextStyle: TextStyle(
+                    color: AppColors.onPrimary(context),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  markerDecoration: BoxDecoration(
+                    color: AppColors.lightAccent(context),
+                    shape: BoxShape.circle,
+                  ),
+                  defaultTextStyle: TextStyle(
+                    color: AppColors.onSurface(context),
+                  ),
+                   weekendTextStyle: TextStyle(
+                    color: AppColors.description(context),
+                  ),
+                  outsideTextStyle: TextStyle(
+                    color: AppColors.description(context),
+                  ),
+                ),
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: TextStyle(
+                    color: AppColors.onSurface(context),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  weekendStyle: TextStyle(
+                    color: AppColors.description(context),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(height: 8.0),
               // Use Expanded to make the ListView fill the remaining space
@@ -86,6 +144,7 @@ class CalendarScreenState extends State<CalendarScreen>{
                             vertical: 4.0,
                           ),
                           decoration: BoxDecoration(
+                            color: AppColors.surface(context),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: ListTile(
@@ -93,11 +152,13 @@ class CalendarScreenState extends State<CalendarScreen>{
                             title: Text(
                               value[index].title,
                               style: TextStyle(
+                                color: AppColors.onSurface(context),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             leading: Icon(
                               Icons.event,
+                              color: AppColors.accent(context),
                               size: 24,
                             ),
                           ),
@@ -112,4 +173,3 @@ class CalendarScreenState extends State<CalendarScreen>{
     );
   }
 }
-
