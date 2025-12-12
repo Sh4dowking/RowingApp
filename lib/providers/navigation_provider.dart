@@ -1,9 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// This is the provider. It's a global variable that we can read and update.
-// - `StateProvider<int>` means it's a provider that holds a simple, changeable
-//   state (in this case, an integer).
-// - `(ref)` is a function that gives you access to other providers. We don't need it yet.
-// - `=> 0` sets the initial value of our state to 0. This means the app will
-//   start with the first tab selected.
+/// Provider for managing the bottom navigation bar's selected index
+///
+/// This is a StateProvider that holds a simple integer representing which
+/// tab is currently selected in the bottom navigation bar.
+///
+/// Usage:
+/// - Read: `ref.watch(navigationIndexProvider)` to get the current index
+/// - Update: `ref.read(navigationIndexProvider.notifier).state = newIndex`
+///
+/// Initial value is 0, meaning the app starts on the first tab (Home)
 final navigationIndexProvider = StateProvider<int>((ref) => 0);

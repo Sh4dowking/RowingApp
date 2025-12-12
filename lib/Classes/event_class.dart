@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
 
+/// Represents a training or team event
+/// Contains all information needed to display and manage events in the app
 class Event {
   final String title;
   final DateTime time;
   final String description;
   final IconData icon;
 
-  Event({
+  const Event({
     required this.title,
     required this.time,
     required this.description,
     required this.icon,
   });
+
+  /// Checks if this event occurs on the same day as the given date
+  bool isSameDay(DateTime date) {
+    return time.year == date.year &&
+        time.month == date.month &&
+        time.day == date.day;
+  }
+
+  /// Returns the weekday index (0 = Monday, 6 = Sunday)
+  int get weekdayIndex => time.weekday - 1;
 }
 
+/// Global list of sample events for the application
+/// TODO: Replace with a proper data source (database, API, etc.)
 final List<Event> events = [
   Event(
     title: 'Morning Rowing',

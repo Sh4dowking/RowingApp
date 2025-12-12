@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:row_up/Widgets/weekday_box.dart';
 
+/// Callback type for when a day is selected
 typedef DaySelectedCallback = void Function(int dayIndex);
 
+/// Horizontal selector widget for choosing a day of the week
+/// Displays abbreviated day names (Mon-Sun) as selectable boxes
 class WeekdaySelector extends StatelessWidget {
+  /// Callback invoked when a day is selected
   final DaySelectedCallback onDaySelected;
+
+  /// Currently selected day index (0 = Monday, 6 = Sunday)
   final int selectedDay;
 
   const WeekdaySelector({
@@ -13,23 +19,31 @@ class WeekdaySelector extends StatelessWidget {
     required this.selectedDay,
   });
 
+  /// Abbreviated weekday labels starting from Monday
+  static const List<String> _weekdayLabels = [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun",
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final List<String> days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
       padding: const EdgeInsets.all(12),
       height: screenHeight * 0.075,
       child: Row(
-        children: List.generate(days.length, (dayIndex) {
+        children: List.generate(_weekdayLabels.length, (dayIndex) {
           return Expanded(
             child: WeekdayBox(
-              title: days[dayIndex],
+              title: _weekdayLabels[dayIndex],
               isSelected: selectedDay == dayIndex,
-              onPressed: () {
-                onDaySelected(dayIndex);
-              },
+              onPressed: () => onDaySelected(dayIndex),
             ),
           );
         }),
