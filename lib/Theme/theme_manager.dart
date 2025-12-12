@@ -25,22 +25,22 @@ class AppColors {
 
   /// Primary color - typically used for app bars and key UI elements
   static Color primary(BuildContext context) {
-    return black;
+    return isLightMode(context) ? white : black;
   }
 
   /// Color for content displayed on primary surfaces
   static Color onPrimary(BuildContext context) {
-    return white;
+    return isLightMode(context) ? black : white;
   }
 
   /// Background color for elevated surfaces (cards, sheets, etc.)
   static Color surface(BuildContext context) {
-    return charcoal;
+    return isLightMode(context) ? coolWhite : charcoal;
   }
 
   /// Color for content displayed on surfaces
   static Color onSurface(BuildContext context) {
-    return white;
+    return isLightMode(context) ? black : white;
   }
 
   /// Accent color for highlights and interactive elements

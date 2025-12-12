@@ -25,7 +25,7 @@ class RowUp extends StatelessWidget {
       valueListenable: themeNotifier,
       builder: (context, themeMode, child) {
         return MaterialApp(
-          title: 'Row Up',
+          title: 'RowUp',
           theme: getLightTheme(),
           darkTheme: getDarkTheme(),
           themeMode: themeMode,
@@ -64,8 +64,8 @@ class MainPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Row Up'),
-        titleTextStyle: const TextStyle(
+        title: const Text('RowUp'),
+        titleTextStyle: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 24,
