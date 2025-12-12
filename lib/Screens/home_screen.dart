@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:row_up/Screens/event_details_screen.dart';
-import 'package:row_up/Theme/theme_manager.dart'; // Import theme manager
+import 'package:row_up/Theme/theme_manager.dart';
 import 'package:row_up/Widgets/event_card.dart';
 import 'package:row_up/Widgets/weekday_selector.dart';
 
@@ -14,67 +14,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedDay = 0;
+  int selectedDay = DateTime.now().weekday - 1;
 
-  // Store events in a more structured way using our new model
-  final Map<int, List<Event>> dailyEvents = {
-    0: const [
-      Event(title: 'Morning Rowing', time: '08:00 AM', description: 'Endurance session on the water.', icon: Icons.rowing),
-      Event(title: 'Evening Gym', time: '06:00 PM', description: 'Strength and conditioning.', icon: Icons.fitness_center),
-    ],
-    1: const [
-      Event(title: 'Morning Run', time: '07:00 AM', description: '5k run.', icon: Icons.directions_run),
-      Event(title: 'Evening Yoga', time: '07:00 PM', description: 'Recovery and flexibility.', icon: Icons.self_improvement),
-    ],
-    2: const [
-      Event(title: 'Morning Rowing', time: '08:00 AM', description: 'Sprint intervals on the water.', icon: Icons.rowing),
-      Event(title: 'Evening Gym', time: '06:00 PM', description: 'Powerlifting session.', icon: Icons.fitness_center),
-    ],
-    3: const [
-      Event(title: 'Rest Day', time: 'All Day', description: 'Recovery and nutrition focus.', icon: Icons.hotel),
-    ],
-    4: const [
-      Event(title: 'Morning Swim', time: '07:30 AM', description: 'Technique and drills.', icon: Icons.pool),
-      Event(title: 'Evening Crossfit', time: '06:30 PM', description: 'High-intensity workout.', icon: Icons.whatshot),
-    ],
-    5: const [
-      Event(title: 'Morning Competition', time: '09:00 AM', description: 'Regatta day!', icon: Icons.emoji_events),
-    ],
-    6: const [
-      Event(title: 'Team Brunch', time: '11:00 AM', description: 'Post-competition celebration.', icon: Icons.fastfood),
-    ],
-  };
-
-  // Navigate to the details screen
   void _navigateToDetails(Event event) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => EventDetailsScreen(event: event),
-      ),
+      MaterialPageRoute(builder: (context) => EventDetailsScreen(event: event)),
     );
   }
 
   Widget buildDayContent(int dayIndex) {
-    final events = dailyEvents[dayIndex] ?? [];
+    final List<Event> eventsForDay = [];
+    for (final event in events) {
+      if (event.time.weekday - 1 == dayIndex) {
+        eventsForDay.add(event);
+      }
+    }
 
-    if (events.isEmpty) {
+    if (eventsForDay.isEmpty) {
       return const Expanded(
-        child: Center(child: Text('No events scheduled.')),
+        child: Center(child: Text('No events scheduled for this day.')),
       );
     }
 
     return Expanded(
       child: ListView.builder(
-        itemCount: events.length,
+        itemCount: eventsForDay.length,
         itemBuilder: (context, index) {
-          final event = events[index];
-            return EventCard(
-              title: event.title,
-              time: event.time,
-              description: event.description,
-              icon: event.icon,
-              onTap: () => _navigateToDetails(event),
-            );
+          final Event currentEvent = eventsForDay[index];
+          return EventCard(
+            event: currentEvent,
+            onTap: () => _navigateToDetails(currentEvent),
+          );
         },
       ),
     );
@@ -103,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         WeekdaySelector(
+          selectedDay: selectedDay,
           onDaySelected: (dayIndex) {
             setState(() {
               selectedDay = dayIndex;

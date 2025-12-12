@@ -3,25 +3,23 @@ import 'package:row_up/Widgets/weekday_box.dart';
 
 typedef DaySelectedCallback = void Function(int dayIndex);
 
-class WeekdaySelector extends StatefulWidget {
+class WeekdaySelector extends StatelessWidget {
   final DaySelectedCallback onDaySelected;
+  final int selectedDay;
 
-  const WeekdaySelector({super.key, required this.onDaySelected});
-
-  @override
-  State<WeekdaySelector> createState() => _WeekdaySelectorState();
-}
-
-class _WeekdaySelectorState extends State<WeekdaySelector> {
-  int selectedDay = 0;
-  final List<String> days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const WeekdaySelector({
+    super.key, 
+    required this.onDaySelected,
+    required this.selectedDay,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final List<String> days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       height: screenHeight * 0.075,
       child: Row(
         children: List.generate(days.length, (dayIndex) {
@@ -30,10 +28,7 @@ class _WeekdaySelectorState extends State<WeekdaySelector> {
               title: days[dayIndex],
               isSelected: selectedDay == dayIndex,
               onPressed: () {
-                setState(() {
-                  selectedDay = dayIndex;
-                });
-                widget.onDaySelected(dayIndex);
+                onDaySelected(dayIndex);
               },
             ),
           );

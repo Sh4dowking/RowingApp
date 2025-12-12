@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:row_up/Classes/event_class.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 
@@ -37,7 +38,7 @@ class EventDetailsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               Text(
-                'Scheduled for: ${event.time}',
+                'Scheduled for: ${DateFormat.jm().format(event.time)}',
                 style: TextStyle(
                   fontSize: 20.0,
                   color: AppColors.onSurface(context),

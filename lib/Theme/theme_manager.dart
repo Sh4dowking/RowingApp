@@ -77,8 +77,8 @@ ThemeData getDarkTheme() {
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.midnight,
-      selectedItemColor: AppColors.steel,
-      unselectedItemColor: AppColors.white,
+      selectedItemColor: AppColors.white,
+      unselectedItemColor: AppColors.steel,
     ),
     scaffoldBackgroundColor: AppColors.black,
   );

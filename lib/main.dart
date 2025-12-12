@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:row_up/Screens/calendar_screen.dart';
 import 'package:row_up/Screens/notifications_screen.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 import 'package:row_up/Widgets/information_drawer.dart';
+import 'package:row_up/providers/navigation_provider.dart';
 import 'Screens/home_screen.dart';
 
 void main() {
-  runApp(const RowingApp());
+  runApp(const ProviderScope(child: RowUp()));
 }
 
-class RowingApp extends StatelessWidget {
-  const RowingApp({super.key});
+class RowUp extends StatelessWidget {
+  const RowUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,67 +31,46 @@ class RowingApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatefulWidget {
+class MainPage extends ConsumerWidget {
   const MainPage({super.key});
 
   @override
-  State<MainPage> createState() => MainPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final int currentIndex = ref.watch(navigationIndexProvider);
 
-class MainPageState extends State<MainPage> {
-  final ValueNotifier<int> screenIndex = ValueNotifier<int>(0);
-  final List<Widget> screens = [
-    const HomeScreen(),
-    const CalendarScreen(),
-    const NotificationsScreen(),
-  ];
+    final List<Widget> screens = [
+      const HomeScreen(),
+      const CalendarScreen(),
+      const NotificationsScreen(),
+    ];
 
-  void onBottomNavigationBarTapped(int index) {
-    screenIndex.value = index;
-  }
-
-  @override
-  void dispose() {
-    screenIndex.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Rowing App'),
-      titleTextStyle: TextStyle(
-          color: AppColors.white,
+      appBar: AppBar(
+        title: const Text('Rowing App'),
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
           fontWeight: FontWeight.bold,
-        fontSize: 24
+          fontSize: 24,
+        ),
       ),
-      ),
-      drawer: InformationDrawer(),
-      body: ValueListenableBuilder<int>(
-        valueListenable: screenIndex,
-        builder: (context, value, child) {
-          return screens[value];
-        },
-      ),
-      bottomNavigationBar: ValueListenableBuilder<int>(
-        valueListenable: screenIndex,
-        builder: (context, index, child) {
-          return BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_month),
-                label: 'Calendar',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.inbox),
-                label: 'Notifications',
-              ),
-            ],
-            currentIndex: index,
-            onTap: onBottomNavigationBarTapped,
-          );
+      drawer: const InformationDrawer(),
+      body: screens[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Calendar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.inbox),
+            label: 'Notifications',
+          ),
+        ],
+        currentIndex: currentIndex,
+        onTap: (index) {
+          ref.read(navigationIndexProvider.notifier).state = index;
         },
       ),
     );

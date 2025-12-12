@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 
-class EventCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final String time;
-  final IconData icon;
-  final VoidCallback onTap;
+import '../Classes/event_class.dart';
 
+class EventCard extends StatelessWidget {
+  final Event event;
+  final VoidCallback onTap;
 
   const EventCard({
     super.key,
-    required this.title,
-    required this.description,
-    required this.time,
-    required this.icon,
+    required this.event,
     required this.onTap,
   });
 
@@ -29,15 +25,15 @@ class EventCard extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: ListTile(
             leading: Icon(
-              icon,
+              event.icon,
               color: AppColors.accent(context),
               size: 40.0,
             ),
             title: Text(
-              title,
+              event.title,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            subtitle: Text('$description\nTime: $time'),
+            subtitle: Text('${event.description}\nTime: ${DateFormat.jm().format(event.time)}'),
             isThreeLine: true,
           ),
         ),
@@ -45,4 +41,3 @@ class EventCard extends StatelessWidget {
     );
   }
 }
-
