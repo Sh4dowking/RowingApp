@@ -5,8 +5,6 @@ import 'package:row_up/Widgets/event_card.dart';
 import 'package:row_up/Widgets/weekday_selector.dart';
 import '../Classes/event_class.dart';
 
-/// Home screen displaying training sessions organized by weekday
-/// Allows users to select a day and view all events scheduled for that day
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -15,9 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  /// Currently selected weekday index (0 = Monday, 6 = Sunday)
-  /// Initialized to today's weekday
-  late int _selectedDay;
+  late int _selectedDay; // Currently selected weekday index (0 = Monday, 6 = Sunday)
 
   @override
   void initState() {
@@ -25,8 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _selectedDay = DateTime.now().weekday - 1;
   }
 
-  /// Navigates to the event details screen for the specified event
-  void _navigateToDetails(Event event) {
+  void _navigateToEventDetails(Event event) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => EventDetailsScreen(event: event),
@@ -34,16 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// Filters and returns events for the specified weekday index
   List<Event> _getEventsForDay(int dayIndex) {
     return events.where((event) => event.weekdayIndex == dayIndex).toList();
   }
 
-  /// Builds the content area showing events for the selected day
   Widget _buildDayContent() {
     final eventsForDay = _getEventsForDay(_selectedDay);
-
-    // Show message when no events are scheduled
     if (eventsForDay.isEmpty) {
       return Expanded(
         child: Center(
@@ -57,8 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     }
-
-    // Display list of events
     return Expanded(
       child: ListView.builder(
         itemCount: eventsForDay.length,
@@ -66,14 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
           final event = eventsForDay[index];
           return EventCard(
             event: event,
-            onTap: () => _navigateToDetails(event),
+            onTap: () => _navigateToEventDetails(event),
           );
         },
       ),
     );
   }
 
-  /// Builds the header section with the screen title
   Widget _buildHeader() {
     return Container(
       width: double.infinity,

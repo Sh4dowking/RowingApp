@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 
-/// Theme settings screen allowing users to switch between light, dark, and system themes
 class ThemeScreen extends StatelessWidget {
   const ThemeScreen({super.key});
 
-  /// Available theme mode options
   static const List<_ThemeOption> _themeOptions = [
     _ThemeOption(label: 'System', mode: ThemeMode.system),
     _ThemeOption(label: 'Light', mode: ThemeMode.light),
     _ThemeOption(label: 'Dark', mode: ThemeMode.dark),
   ];
 
-  /// Builds a selectable theme button
   Widget _buildThemeButton(
     BuildContext context,
     String label,
@@ -46,7 +43,6 @@ class ThemeScreen extends StatelessWidget {
     );
   }
 
-  /// Builds the theme selector card with all theme options
   Widget _buildThemeSelectorCard(BuildContext context, ThemeMode currentTheme) {
     return Card(
       child: Padding(
@@ -108,7 +104,6 @@ class ThemeScreen extends StatelessWidget {
   }
 }
 
-/// Internal class representing a theme option
 class _ThemeOption {
   final String label;
   final ThemeMode mode;

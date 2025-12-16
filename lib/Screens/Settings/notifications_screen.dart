@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 
-/// Notifications settings screen for configuring notification preferences
-/// TODO: Implement notification settings with toggles and preferences
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
 

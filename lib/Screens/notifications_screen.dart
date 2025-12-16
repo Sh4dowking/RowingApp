@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 
-/// Notifications screen displaying user notifications and alerts
-/// TODO: Implement notifications functionality with actual data
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
 
@@ -12,15 +10,12 @@ class NotificationsScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Placeholder notification icon
           Icon(
             Icons.notifications_none,
             size: 100,
             color: AppColors.accent(context),
           ),
           const SizedBox(height: 24),
-
-          // Placeholder text
           Text(
             'Notifications',
             style: TextStyle(

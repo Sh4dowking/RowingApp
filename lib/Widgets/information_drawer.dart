@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Screens/profile_screen.dart';
-import '../Screens/settings_screen.dart';
+import 'package:row_up/Screens/Drawer/under_construction_screen.dart';
+import '../Screens/Drawer/profile_screen.dart';
+import '../Screens/Drawer/settings_screen.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 
 /// Navigation drawer providing access to app settings and information
@@ -8,25 +9,56 @@ import 'package:row_up/Theme/theme_manager.dart';
 class InformationDrawer extends StatelessWidget {
   const InformationDrawer({super.key});
 
-  /// Navigates to a screen and closes the drawer
+  static const List<_DrawerItem> _drawerTopItems = [
+    _DrawerItem(
+        icon: Icons.person_outlined,
+        label: 'Profile',
+        screen: ProfileScreen()),
+    _DrawerItem(
+      icon: Icons.settings_outlined,
+      label: 'Settings',
+      screen: SettingsScreen(),
+    ),
+  ];
+
+  static const List<_DrawerItem> _drawerBottomItems = [
+    _DrawerItem(
+        icon: Icons.info_outlined,
+        label: 'About',
+        screen: UnderConstructionScreen()),
+    _DrawerItem(
+      icon: Icons.help_outline,
+      label: 'Help (FAQ)',
+      screen: UnderConstructionScreen(),
+    ),
+    _DrawerItem(
+      icon: Icons.bug_report_outlined,
+      label: 'Report a bug',
+      screen: UnderConstructionScreen(),
+    ),
+  ];
+
   void _navigateToScreen(BuildContext context, Widget screen) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => screen),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
   }
 
-  /// Builds a drawer list tile with consistent styling
   Widget _buildDrawerTile({
     required IconData icon,
     required String title,
     required VoidCallback onTap,
   }) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      onTap: onTap,
-    );
+    return ListTile(leading: Icon(icon), title: Text(title), onTap: onTap);
+  }
+
+  // Takes a list of _DrawerItem and returns a list of corresponding widgets
+  List<Widget> _buildDrawerItems(List<_DrawerItem> items, BuildContext context) {
+    return items
+        .map((item) => _buildDrawerTile(
+      icon: item.icon,
+      title: item.label,
+      onTap: () => _navigateToScreen(context, item.screen),
+    ))
+        .toList();
   }
 
   @override
@@ -36,11 +68,8 @@ class InformationDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          // Drawer header
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: AppColors.primary(context),
-            ),
+            decoration: BoxDecoration(color: AppColors.primary(context)),
             child: const Text(
               'Menu',
               style: TextStyle(
@@ -50,52 +79,23 @@ class InformationDrawer extends StatelessWidget {
               ),
             ),
           ),
-
-          // Profile section
-          _buildDrawerTile(
-            icon: Icons.person_outline,
-            title: 'Profile',
-            onTap: () => _navigateToScreen(context, const ProfileScreen()),
-          ),
-
-          // Settings section
-          _buildDrawerTile(
-            icon: Icons.settings_outlined,
-            title: 'Settings',
-            onTap: () => _navigateToScreen(context, const SettingsScreen()),
-          ),
-
+          ..._buildDrawerItems(_drawerTopItems, context),
           const Divider(),
-
-          // Information sections
-          _buildDrawerTile(
-            icon: Icons.info_outline,
-            title: 'About',
-            onTap: () {
-              Navigator.pop(context);
-              // TODO: Implement About screen
-            },
-          ),
-
-          _buildDrawerTile(
-            icon: Icons.help_outline,
-            title: 'Help (FAQ)',
-            onTap: () {
-              Navigator.pop(context);
-              // TODO: Implement Help/FAQ screen
-            },
-          ),
-
-          _buildDrawerTile(
-            icon: Icons.bug_report_outlined,
-            title: 'Report a bug',
-            onTap: () {
-              Navigator.pop(context);
-              // TODO: Implement bug reporting functionality
-            },
-          ),
+          ..._buildDrawerItems(_drawerBottomItems, context),
         ],
       ),
     );
   }
+}
+
+class _DrawerItem {
+  final IconData icon;
+  final String label;
+  final Widget screen;
+
+  const _DrawerItem({
+    required this.icon,
+    required this.label,
+    required this.screen,
+  });
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 
-/// Language and region settings screen
-/// TODO: Implement localization and language selection
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
 

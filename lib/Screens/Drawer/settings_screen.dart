@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:row_up/Widgets/settings_entry.dart';
-import 'Settings/language_screen.dart';
-import 'Settings/notifications_screen.dart';
-import 'Settings/theme_screen.dart';
+import 'package:row_up/Theme/theme_manager.dart';
+import '../Settings/language_screen.dart';
+import '../Settings/notifications_screen.dart';
+import '../Settings/theme_screen.dart';
 
-/// Settings screen providing access to app configuration options
-/// Displays a list of settings categories that navigate to detail screens
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  /// Configuration data for each settings entry
   static const List<_SettingsItem> _settingsItems = [
     _SettingsItem(
       title: "Notifications",
@@ -28,7 +25,6 @@ class SettingsScreen extends StatelessWidget {
     ),
   ];
 
-  /// Navigates to the specified settings detail screen
   void _navigateToSettingScreen(BuildContext context, Widget screen) {
     Navigator.push(
       context,
@@ -57,7 +53,6 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
-/// Internal class representing a settings menu item
 class _SettingsItem {
   final String title;
   final IconData icon;
@@ -70,3 +65,33 @@ class _SettingsItem {
   });
 }
 
+/// Reusable list tile widget for settings menu entries
+/// Displays an icon, title, and navigation arrow
+class SettingsEntry extends StatelessWidget {
+  final String title;
+  final Icon icon;
+
+  final VoidCallback onTap;
+
+  const SettingsEntry({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: AppColors.surface(context),
+      margin: EdgeInsets.zero,
+      shape: const Border(),
+      child: ListTile(
+        leading: icon,
+        title: Text(title),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: onTap,
+      ),
+    );
+  }
+}

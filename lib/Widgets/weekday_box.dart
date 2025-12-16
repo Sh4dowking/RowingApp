@@ -4,13 +4,8 @@ import 'package:row_up/Theme/theme_manager.dart';
 /// Individual weekday selector box widget
 /// Displays a single day label and changes appearance when selected
 class WeekdayBox extends StatelessWidget {
-  /// The abbreviated day name to display (e.g., "Mon", "Tue")
   final String title;
-
-  /// Whether this day is currently selected
   final bool isSelected;
-
-  /// Callback invoked when the box is tapped
   final VoidCallback onPressed;
 
   const WeekdayBox({

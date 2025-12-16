@@ -13,14 +13,9 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class CalendarScreenState extends State<CalendarScreen> {
-  /// The day currently being viewed/focused in the calendar
-  late DateTime _focusedDay;
-
-  /// The day currently selected by the user
-  late DateTime _selectedDay;
-
-  /// Notifier containing events for the currently selected day
-  late final ValueNotifier<List<Event>> _selectedEvents;
+  late DateTime _focusedDay; // The day currently being viewed/focused in the calendar
+  late DateTime _selectedDay; // The day currently selected by the user
+  late final ValueNotifier<List<Event>> _selectedEvents; // Notifier containing events for the currently selected day
 
   @override
   void initState() {
@@ -36,13 +31,10 @@ class CalendarScreenState extends State<CalendarScreen> {
     super.dispose();
   }
 
-  /// Retrieves all events scheduled for the specified day
   List<Event> _getEventsForDay(DateTime day) {
     return events.where((event) => isSameDay(event.time, day)).toList();
   }
 
-  /// Handles day selection in the calendar
-  /// Updates the selected day and refreshes the events list
   void _onDaySelected(DateTime newlySelectedDay, DateTime newFocusedDay) {
     if (!isSameDay(_selectedDay, newlySelectedDay)) {
       setState(() {
@@ -59,7 +51,6 @@ class CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
-  /// Builds the calendar widget with custom styling
   Widget _buildCalendar(BuildContext context) {
     return TableCalendar(
       focusedDay: _focusedDay,
@@ -130,7 +121,6 @@ class CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
-  /// Builds a list tile for displaying an event
   Widget _buildEventTile(BuildContext context, Event event) {
     final formattedTime = DateFormat.jm().format(event.time);
 
@@ -158,13 +148,11 @@ class CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
-  /// Builds the events list for the selected day
   Widget _buildEventsList() {
     return Expanded(
       child: ValueListenableBuilder<List<Event>>(
         valueListenable: _selectedEvents,
         builder: (context, eventsList, _) {
-          // Show message when no events are scheduled
           if (eventsList.isEmpty) {
             return Center(
               child: Text(
@@ -176,8 +164,6 @@ class CalendarScreenState extends State<CalendarScreen> {
               ),
             );
           }
-
-          // Display list of events
           return ListView.builder(
             itemCount: eventsList.length,
             itemBuilder: (context, index) {

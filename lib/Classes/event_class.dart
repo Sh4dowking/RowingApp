@@ -15,19 +15,17 @@ class Event {
     required this.icon,
   });
 
-  /// Checks if this event occurs on the same day as the given date
   bool isSameDay(DateTime date) {
     return time.year == date.year &&
         time.month == date.month &&
         time.day == date.day;
   }
 
-  /// Returns the weekday index (0 = Monday, 6 = Sunday)
+  // Returns the weekday index (0 = Monday, 6 = Sunday)
   int get weekdayIndex => time.weekday - 1;
 }
 
 /// Global list of sample events for the application
-/// TODO: Replace with a proper data source (database, API, etc.)
 final List<Event> events = [
   Event(
     title: 'Morning Rowing',
