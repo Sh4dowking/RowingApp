@@ -22,18 +22,24 @@ class WeekdayBox extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.accent(context)
-              : AppColors.surface(context),
+          color:
+              isSelected
+                  ? AppColors.accent(context).withValues(alpha: 0.8)
+                  : AppColors.surface(context),
           borderRadius: BorderRadius.circular(8.0),
+          border: Border.all(
+            color: Colors.grey.withValues(alpha: 0.2),
+            width: 2,
+          ),
         ),
         child: Center(
           child: Text(
             title,
             style: TextStyle(
-              color: isSelected
-                  ? AppColors.onPrimary(context)
-                  : AppColors.onSurface(context),
+              color:
+                  isSelected
+                      ? AppColors.onPrimary(context)
+                      : AppColors.onSurface(context),
               fontWeight: FontWeight.bold,
             ),
           ),

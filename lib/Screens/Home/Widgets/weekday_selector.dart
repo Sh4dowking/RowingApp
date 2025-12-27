@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:row_up/Widgets/weekday_box.dart';
+import 'package:row_up/Screens/Home/Widgets/weekday_box.dart';
 
 typedef DaySelectedCallback = void Function(int dayIndex);
 
@@ -17,14 +17,20 @@ class WeekdaySelector extends StatelessWidget {
   });
 
   static const List<String> _weekdayLabels = [
-    "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun",
   ];
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
       height: screenHeight * 0.075,
       child: Row(
         children: List.generate(_weekdayLabels.length, (dayIndex) {

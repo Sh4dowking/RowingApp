@@ -5,7 +5,8 @@ import 'package:row_up/Screens/notifications_screen.dart';
 import 'package:row_up/Theme/theme_manager.dart';
 import 'package:row_up/Widgets/information_drawer.dart';
 import 'package:row_up/providers/navigation_provider.dart';
-import 'Screens/home_screen.dart';
+
+import 'Screens/Home/home_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: RowUp()));
@@ -37,10 +38,7 @@ class MainPage extends ConsumerWidget {
   const MainPage({super.key});
 
   static const List<_NavigationItem> _navigationItems = [
-    _NavigationItem(
-      icon: Icons.home,
-      label: 'Home',
-      screen: HomeScreen()),
+    _NavigationItem(icon: Icons.home, label: 'Home', screen: HomeScreen()),
     _NavigationItem(
       icon: Icons.calendar_month,
       label: 'Calendar',
